@@ -1,0 +1,21 @@
+#!usr/bin/env python3
+
+export SPARK_MAJOR_VERSION=2
+from pyspark.sql import SparkSession
+
+#create a SparkSession to start with
+spark = SparkSession.builder.master('local').appName("Movie Ranking Testing").getOrCreate()
+
+#grab the reviews data out of the csv
+reviews_dat = spark.read.format('csv').options(header=True).load('reviews.csv')
+#reviews_dat.printSchema()
+#reviews_dat.show()
+
+#grab the movies data out of the csv
+movies_dat = spark.read.format('csv').options(header=True).load('movies.csv')
+
+#parse the two DataFrames together based on MovieID and group them to create a 'count' variable for each movieId
+mr_dat = reviews_dat.join(movies_dat, 'movieId', 'outer').groupBy('movieId').count()
+
+#sort the DataFrame by counts, take the top 10, and output them via collect()
+mr_dat.orderBy('count', ascending=False).limit(10).collect()

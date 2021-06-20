@@ -1,0 +1,26 @@
+COEN 242 BIG DATA
+ASSIGNMENT 3 - Exploring Spark Ecoystem (Part 1)
+13 June 2020
+
+Team 21: Shiva Govindaraju
+
+Notes:
+
+My solution(s) to Part 1 of this Assignment were implemented using pyspark and Apache Spark 2.4.5. They will not work on any Spark distribution less than 2.0+ due to the required code libraries in pyspark. Python 3.6.0 was used in this implementation, and it will require Python 3 at the minimum for correct execution.
+
+Hadoop is not required to run this implementation. Given I was unable to utilize a Hadoop cluster for testing, I am unsure of whether it will work on one or not. Even so, the option to use a Hadoop cluster for optimal execution is available and supported by my solution.
+
+To solve both Problems simultaneously, execute the following on the terminal:
+>>spark-submit soln_assign3.py <HOST_URL> <REVIEWS_DATA> <MOVIES_DATA>
+
+To solve Problem 1 only, execut the following:
+>>spark-submit soln_prob1.py <CLUSTER_URL> <REVIEWS_DATA> <MOVIES_DATA>
+
+To solve Problem 2 only, execut the following:
+>>spark-submit soln_prob2.py <HOST_URL> <REVIEWS_DATA> <MOVIES_DATA>
+
+Output for Problem 1 will be found in output_prob1.csv and Problem 2's will be in output_prob2.csv
+
+The input parameters for CLUSTER_URL must either be a valid Cluster URL that Spark is installed to utilize (such as a Hadoop HDFS and cluster) or "local" to run the code on the local machine.
+
+Fill in REVIEWS_DATA and MOVIES_DATA with the filenames (and filepaths, if required) for the CSV datasets as described in the problem description. See the Report for full details on the exepectations for these datasets. REVIEWS_DATA should contain the CSV data for the movie reviews and MOVIES_DATA should have the data described the movies used in the reviews.

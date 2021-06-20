@@ -1,0 +1,58 @@
+COEN 242 Big Data Spring 2020
+Assignment 2: MapReduce/Hive Top K Words
+
+Team 21: Shiva K Govindaraju
+Date: 17 May 2020
+
+---MAPREDUCE EXECUTION---
+
+Note: Ensure that mrjob is installed via pip.
+
+MapReduce can be run either locally or on the Hadoop cluster.
+It also requires different inputs to the command line depending
+on which part of the assignment is being tested: the standard
+top 100 words, or the top 100 for only words with more than 6
+characters in them. The commands to be given are as follows:
+
+Please fill in/output filenames in the locations shown (don't include the brackets).
+
+To Run Locally - Normal Top 100 Words
+>>>python3 word_count.py {INPUTFILENAME} | python3 tkw_top100.py > {OUTPUTFILENAME}
+
+To Run Locally - Top 100 Words > 6 characters
+>>>python3 word_count.py {INPUTFILENAME} | python3 tkw_sevenplus.py > {OUTPUTFILENAME}
+
+To Run on Hadoop - Normal Top 100 Words
+>>>python3 word_count.py -r hadoop {INPUTFILENAME} | python3 tkw_top100.py > {OUTPUTFILENAME}
+
+To Run on Hadoop - Top 100 words > 6 characters
+>>>python3 word_count.py -r hadoop {INPUTFILENAME} | python4 tkw_sevenplus.py > {OUTPUTFILENAME}
+
+Note: proper execution might require the inclusion of a configuration file. See the full report for
+more about mrjob.conf as it must be added and configured for your own system to run properly on the
+hadoop cluster.
+
+---HIVE EXECTUION---
+
+Apache Hive's HQL scripts can only be run on the Hadoop cluster.
+My script will run both the normal top 100 words and the top 100
+words for > 6 characters. It requires the existence of two
+directories in the local folder where the script is being run, both
+with read-write permissions allowed for groups and users (use chmod 
+to achieve this). These directories must be named '/hive_output_tkw'
+and '/hive_output_tkw_sevenplus'.
+
+Please fill the input filename in the location shown (don't include the brackets).
+
+>>>hive -f tkw_HIVE.hql --hivevar inputfilename={INPUTFILENAME}
+
+The output for the normal top 100 words will be found in the only file in
+/hive_output_tkw. The top 100 words with lengths > 6 chars will be found
+in /hive_output_tkw_sevenplus.
+
+Warning: each time tkw_HIVE.hql is run, the contents of those directories
+will be overwritten with the new outputs, so you cannot run this script
+successively and assume that all output will be saved to different files.
+After each time you run this script, you will need to copy the output data
+to another directory in order for it to survive the next run of the script.
+
